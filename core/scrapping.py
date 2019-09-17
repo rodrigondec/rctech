@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 from bs4 import BeautifulSoup
 
 from core.utils import request_page
+from core.models import Article
 
 
 logging.basicConfig(level=logging.INFO)
@@ -26,8 +27,29 @@ class PortalScrapper(ABC):
         raise NotImplemented('Cannot call method from abstract class')
 
 
+class TecmundoScrapper(PortalScrapper):
+    def __init__(self):
+        logging.info(f'{self.__class__.__name__} inicializando...')
+        super(TecmundoScrapper, self).__init__('https://www.tecmundo.com.br/')
+
+    def process(self):
+        logging.info(f'{self.__class__.__name__} processando...')
+        logging.info(f'{self.__class__.__name__} pegando todos os artigos da página...')
+        article_tags = self.page_data.find_all('article')
+        logging.info(f'{self.__class__.__name__} {len(article_tags)} artigos identificados!')
+        for article_tag in article_tags:
+            figure = article_tag.find('figure')
+            div = figure.nextSibling
+            a = div.find('a')
+            article, created = Article.objects.get_or_create(title=a.text.strip())
+            if created:
+                logging.info(f'{self.__class__.__name__} artigo "{article.title}" cadastrado!')
+            else:
+                logging.info(f'{self.__class__.__name__} artigo "{article.title}" já estava cadastrado no sistema!')
+
+
 class ScrappingManager(object):
-    SCRAPPERS = []
+    SCRAPPERS = [TecmundoScrapper]
 
     def __init__(self):
         logging.info(f'{self.__class__.__name__} inicializando...')
