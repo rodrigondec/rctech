@@ -10,3 +10,8 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class Article(BaseModel):
+    title = models.CharField(max_length=200)
+
