@@ -5,13 +5,45 @@ Notícias
 {% endblock %}
 
 {% block content %}
+<h1 class="text-center">Notícias</h1>
+<hr>
 {% if articles %}
-<ul>
-    {% for article in articles %}
-        <li>{{article}}</li>
-    {% endfor %}
-</ul>
+    <div class="col-md-10 offset-md-1 table-responsive">
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>Título</th>
+            </tr>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.title }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% if is_paginated %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
 {% else %}
-<p>Sem notícias</p>
+<h3 class="text-center">Notícias não encontradas</h3>
 {% endif %}
 {% endblock %}
