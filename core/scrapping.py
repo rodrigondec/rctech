@@ -24,3 +24,25 @@ class PortalScrapper(ABC):
     @abstractmethod
     def process(self):
         raise NotImplemented('Cannot call method from abstract class')
+
+
+class ScrappingManager(object):
+    SCRAPPERS = []
+
+    def __init__(self):
+        logging.info(f'{self.__class__.__name__} inicializando...')
+        self.scrappers = []
+        self.initialize_scrappers()
+
+    def initialize_scrappers(self):
+        logging.info(f'{self.__class__.__name__} instanciando scrappers...')
+        for scrapper_cls in self.SCRAPPERS:
+            scrapper = scrapper_cls()
+            assert isinstance(scrapper, PortalScrapper)
+            self.scrappers.append(scrapper)
+
+    def process(self):
+        logging.info(f'{self.__class__.__name__} processando scrappers...')
+        for scrapper in self.scrappers:
+            assert isinstance(scrapper, PortalScrapper)
+            scrapper.process()
