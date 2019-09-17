@@ -1,0 +1,17 @@
+{% extends 'base_with_nav.html' %}
+
+{% block title %}
+Notícias
+{% endblock %}
+
+{% block content %}
+{% if articles %}
+<ul>
+    {% for article in articles %}
+        <li>{{article}}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Sem notícias</p>
+{% endif %}
+{% endblock %}
