@@ -24,7 +24,7 @@ class PortalScrapper(ABC):
 
     @abstractmethod
     def process(self):
-        raise NotImplemented('Cannot call method from abstract class')
+        raise NotImplementedError('Cannot call method from abstract class')
 
 
 class TecmundoScrapper(PortalScrapper):
