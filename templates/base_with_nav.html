@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">
+        Página inicial
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <form method="get" class="form-inline my-2 my-lg-0">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" name="title" type="search" placeholder="Procurar" aria-label="Procurar">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
+    </form>
+
+</nav>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
