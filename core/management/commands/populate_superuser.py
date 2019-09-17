@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 
 
 class Command(BaseCommand):
-    help = 'Crate super user'
+    help = 'Create super user'
 
     def handle(self, *args, **options):
         model = get_user_model()
