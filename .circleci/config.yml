@@ -1,0 +1,13 @@
+version: 2
+
+jobs:
+  build:  # required for runs that don't use workflows
+    working_directory: ~/app
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout  # checkout source code to working directory
+      - run:
+          command: |  # use pipenv to install dependencies
+            pip install requirements/local.txt
+            python manage.py test
