@@ -11,12 +11,14 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
+      - run: make config.env
       - run: make flake8
   test:
     executor: python-executor
     steps:
       - setup_remote_docker
       - checkout
+      - run: make config.env
       - run: make test
 
 workflows:
