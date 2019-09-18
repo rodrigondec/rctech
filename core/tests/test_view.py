@@ -1,60 +1,38 @@
 from django.urls import reverse
 from django.test import TestCase
 
+from core.models import Article
+from core.factories import ArticleFactory
+
 
 class QuestionIndexViewTests(TestCase):
-    def test_no_questions(self):
+    def test_no_articles(self):
         """
-        If no questions exist, an appropriate message is displayed.
+        If no arqicles exist, an appropriate message is displayed.
         """
         response = self.client.get(reverse('core:index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Notícias não encontradas")
         self.assertQuerysetEqual(response.context['articles'], [])
 
-    # def test_past_question(self):
-    #     """
-    #     Questions with a pub_date in the past are displayed on the
-    #     index page.
-    #     """
-    #     create_question(question_text="Past question.", days=-30)
-    #     response = self.client.get(reverse('polls:index'))
-    #     self.assertQuerysetEqual(
-    #         response.context['latest_question_list'],
-    #         ['<Question: Past question.>']
-    #     )
-    #
-    # def test_future_question(self):
-    #     """
-    #     Questions with a pub_date in the future aren't displayed on
-    #     the index page.
-    #     """
-    #     create_question(question_text="Future question.", days=30)
-    #     response = self.client.get(reverse('polls:index'))
-    #     self.assertContains(response, "No polls are available.")
-    #     self.assertQuerysetEqual(response.context['latest_question_list'], [])
-    #
-    # def test_future_question_and_past_question(self):
-    #     """
-    #     Even if both past and future questions exist, only past questions
-    #     are displayed.
-    #     """
-    #     create_question(question_text="Past question.", days=-30)
-    #     create_question(question_text="Future question.", days=30)
-    #     response = self.client.get(reverse('polls:index'))
-    #     self.assertQuerysetEqual(
-    #         response.context['latest_question_list'],
-    #         ['<Question: Past question.>']
-    #     )
-    #
-    # def test_two_past_questions(self):
-    #     """
-    #     The questions index page may display multiple questions.
-    #     """
-    #     create_question(question_text="Past question 1.", days=-30)
-    #     create_question(question_text="Past question 2.", days=-5)
-    #     response = self.client.get(reverse('polls:index'))
-    #     self.assertQuerysetEqual(
-    #         response.context['latest_question_list'],
-    #         ['<Question: Past question 2.>', '<Question: Past question 1.>']
-    #     )
+    def test_articles(self):
+        ArticleFactory.create_batch(3)
+        self.assertEqual(3, Article.objects.count())
+
+        response = self.client.get(reverse('core:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(3, len(response.context['articles']))
+        self.assertEqual(list(Article.objects.all()), list(response.context['articles']))
+
+    def test_filter_articles(self):
+        ArticleFactory(title='Minha noticia 1')
+        ArticleFactory(title='Minha noticia 2')
+        ArticleFactory(title='noticia 1')
+
+        self.assertEqual(3, Article.objects.count())
+
+        response = self.client.get(reverse('core:index'), data={'title': 'min'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(2, Article.objects.filter(title__icontains='min').count())
+        self.assertEqual(2, len(response.context['articles']))
+        self.assertEqual(list(Article.objects.filter(title__icontains='min')), list(response.context['articles']))
