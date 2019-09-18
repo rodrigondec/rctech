@@ -14,3 +14,6 @@ class BaseModel(models.Model):
 
 class Article(BaseModel):
     title = models.CharField(max_length=200)
+
+    class Meta:
+        ordering = ('title',)
