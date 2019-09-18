@@ -1,0 +1,27 @@
+version: 2.1
+
+executors:
+  python-executor:
+    docker:
+      - image: circleci/python:3.7
+
+jobs:
+  flake8:
+    executor: python-executor
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run: make flake8
+  test:
+    executor: python-executor
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run: make test
+
+workflows:
+  version: 2.1
+  flake_and_test:
+    jobs:
+      - flake8
+      - test
