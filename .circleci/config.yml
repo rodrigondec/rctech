@@ -23,6 +23,7 @@ jobs:
       - run:
         command |
           - make config.env
+          - ls
           - make test
 
 workflows:
