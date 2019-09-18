@@ -12,5 +12,5 @@ jobs:
       - checkout  # checkout source code to working directory
       - run:
           command: |  # use pipenv to install dependencies
-            pip install requirements/local.txt
-            python manage.py test
+            pip install ~/app/requirements/local.txt
+            python ~/app/manage.py test
