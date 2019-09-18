@@ -20,7 +20,8 @@ jobs:
       - setup_remote_docker
       - checkout
       - run: make config.env
-      - run: ls
+      - run: pwd
+      - run: ls -l
       - run: make test
 
 workflows:
