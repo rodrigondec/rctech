@@ -12,19 +12,19 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
-          command |
-          - make config.env
-          - make test
+          command: |
+            - make config.env
+            - make test
   test:
     executor: python-executor
     steps:
       - setup_remote_docker
       - checkout
       - run:
-        command |
-          - make config.env
-          - ls
-          - make test
+          command: |
+            - make config.env
+            - ls
+            - make test
 
 workflows:
   version: 2.1
