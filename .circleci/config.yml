@@ -22,6 +22,8 @@ jobs:
       - run: make config.env
       - run: pwd
       - run: ls -la
+      - run: docker-compose run django ls -la
+      - run: docker-compose run django python manage.py test
       - run: make test
 
 workflows:
