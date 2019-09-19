@@ -66,5 +66,4 @@ class ScrappingManager(object):
     def process(self):
         logging.info(f'{self.__class__.__name__} processando scrappers...')
         for scrapper in self.scrappers:
-            assert isinstance(scrapper, PortalScrapper)
             scrapper.process()
