@@ -28,7 +28,8 @@ jobs:
     executor: machine-executor
     steps:
       - base-command
-      - run: make coverage.codacy
+      - run: make coverage
+      - run: docker-compose run django python-codacy-coverage -r coverage.xml -t $CODACY_PROJECT_TOKEN
 
 workflows:
   version: 2.1
