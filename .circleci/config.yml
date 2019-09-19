@@ -32,7 +32,7 @@ jobs:
 
 workflows:
   version: 2.1
-  flake_and_test:
+  tests:
     jobs:
       - flake8
       - test
