@@ -26,6 +26,10 @@ shell:
 coverage:
 	docker-compose run django coverage run --source='.' manage.py test $(app)
 	docker-compose run django coverage report
+	docker-compose run django coverage xml
+
+coverage.codacy: coverage
+	docker-compose run django python-codacy-coverage -r coverage.xml
 
 up:
 	docker-compose up -d

@@ -11,9 +11,6 @@ commands:
       - checkout
       - run: make config.env
 
-orbs:
-  codecov: codecov/codecov@1.0.2
-
 jobs:
   flake8:
     executor: machine-executor
@@ -31,9 +28,7 @@ jobs:
     executor: machine-executor
     steps:
       - base-command
-      - run: make coverage
-      - codecov/upload:
-          file: .coverage
+      - run: make coverage.codacy
 
 workflows:
   version: 2.1
@@ -41,3 +36,4 @@ workflows:
     jobs:
       - flake8
       - test
+      - coverage
