@@ -13,14 +13,14 @@ logging.basicConfig(level=logging.INFO)
 class PortalScrapper(ABC):
     def __init__(self, url=None):
         self.url = url
+        self.response = None
         self.page = None
-        self.page_data = None
         self.load_soup()
 
     def load_soup(self):
         logging.info(f'{self.__class__.__name__} requisitando a página {self.url}...')
-        self.page = request_page(self.url)
-        self.page_data = BeautifulSoup(self.page.content, 'html.parser')
+        self.response = request_page(self.url)
+        self.page = BeautifulSoup(self.response.content, 'html.parser')
 
     @abstractmethod
     def process(self):
@@ -35,7 +35,7 @@ class TecmundoScrapper(PortalScrapper):
     def process(self):
         logging.info(f'{self.__class__.__name__} processando...')
         logging.info(f'{self.__class__.__name__} pegando todos os artigos da página...')
-        article_tags = self.page_data.find_all('article')
+        article_tags = self.page.find_all('article')
         logging.info(f'{self.__class__.__name__} {len(article_tags)} artigos identificados!')
         for article_tag in article_tags:
             figure = article_tag.find('figure')
@@ -60,7 +60,6 @@ class ScrappingManager(object):
         logging.info(f'{self.__class__.__name__} instanciando scrappers...')
         for scrapper_cls in self.SCRAPPERS:
             scrapper = scrapper_cls()
-            assert isinstance(scrapper, PortalScrapper)
             self.scrappers.append(scrapper)
 
     def process(self):
