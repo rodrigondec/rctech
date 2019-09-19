@@ -29,7 +29,7 @@ coverage:
 	docker-compose run django coverage xml
 
 coverage.codacy: coverage
-	docker-compose run django python-codacy-coverage -r coverage.xml -t $CODACY_PROJECT_TOKEN
+	docker-compose run django python-codacy-coverage -r coverage.xml -t $$CODACY_PROJECT_TOKEN
 
 up:
 	docker-compose up -d
