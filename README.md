@@ -2,9 +2,9 @@
 Project made with Django + SQLite + BeautifulSoup for RC Tech interview
 
 [![CircleCI](https://img.shields.io/circleci/build/github/rodrigondec/rctech)](https://circleci.com/gh/rodrigondec/rctech)
-[![License](https://img.shields.io/github/license/rodrigondec/rctech)](https://img.shields.io/github/license/rodrigondec/rctech)
 [![Codacy BadgeCode](https://api.codacy.com/project/badge/Grade/906a295ef1ba48ea83b0e7aa24db38c5)](https://www.codacy.com/manual/rodrigondec/rctech?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rodrigondec/rctech&amp;utm_campaign=Badge_Grade)
 [![Codacy BadgeCoverage](https://api.codacy.com/project/badge/Coverage/906a295ef1ba48ea83b0e7aa24db38c5)](https://www.codacy.com/manual/rodrigondec/rctech?utm_source=github.com&utm_medium=referral&utm_content=rodrigondec/rctech&utm_campaign=Badge_Coverage)
+[![License](https://img.shields.io/github/license/rodrigondec/rctech)](https://img.shields.io/github/license/rodrigondec/rctech)
 
 # Install
 ## Docker + docker-compose
