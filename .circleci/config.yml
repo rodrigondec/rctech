@@ -24,9 +24,16 @@ jobs:
       - base-command
       - run: make test
 
+  coverage:
+    executor: machine-executor
+    steps:
+      - base-command
+      - run: make coverage.codacy
+
 workflows:
   version: 2.1
   flake_and_test:
     jobs:
       - flake8
       - test
+      - coverage
