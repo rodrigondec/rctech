@@ -12,6 +12,8 @@ jobs:
       - setup_remote_docker
       - checkout
       - run: make config.env
+      - run: docker-compose run django ls -la
+      - run: docker-compose run django flake8
       - run: make flake8
 
   test:
