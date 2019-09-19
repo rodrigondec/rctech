@@ -16,18 +16,12 @@ jobs:
     executor: machine-executor
     steps:
       - base-command
-      - run: docker-compose run django ls -la
-      - run: docker-compose run django flake8
       - run: make flake8
 
   test:
     executor: machine-executor
     steps:
       - base-command
-      - run: pwd
-      - run: ls -la
-      - run: docker-compose run django ls -la
-      - run: docker-compose run django python manage.py test
       - run: make test
 
 workflows:
