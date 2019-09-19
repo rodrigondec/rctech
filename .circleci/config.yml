@@ -2,7 +2,8 @@ version: 2.1
 
 executors:
   machine-executor:
-    machine: circleci/classic:latest
+    machine:
+      image: circleci/classic:latest
 
 commands:
   base-command:
