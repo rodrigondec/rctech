@@ -1,5 +1,5 @@
 # RC Tech Django project
-Project made with Django + SQLite + BeautifulSoup for Rc Tech interview
+Project made with Django + SQLite + BeautifulSoup for RC Tech interview
 
 [![CircleCI](https://img.shields.io/circleci/build/github/rodrigondec/rctech)](https://circleci.com/gh/rodrigondec/rctech)
 [![License](https://img.shields.io/github/license/rodrigondec/rctech)](https://img.shields.io/github/license/rodrigondec/rctech)
