@@ -57,7 +57,7 @@ clear.docker:
 ################################################################################
 # manage.py commands
 ################################################################################
-capturar_noticias:
+populate.articles:
 	docker-compose run django python manage.py capturar_noticias
 
 populate.superuser:
