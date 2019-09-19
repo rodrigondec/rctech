@@ -4,15 +4,19 @@ executors:
   machine-executor:
     machine:
       - image: circleci/classic:latest
-      - docker_layer_caching: true
+
+commands:
+  base-command:
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run: make config.env
 
 jobs:
   flake8:
     executor: machine-executor
     steps:
-      - setup_remote_docker
-      - checkout
-      - run: make config.env
+      - base-command
       - run: docker-compose run django ls -la
       - run: docker-compose run django flake8
       - run: make flake8
@@ -20,9 +24,7 @@ jobs:
   test:
     executor: machine-executor
     steps:
-      - setup_remote_docker
-      - checkout
-      - run: make config.env
+      - base-command
       - run: pwd
       - run: ls -la
       - run: docker-compose run django ls -la
