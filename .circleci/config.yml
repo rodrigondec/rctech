@@ -8,7 +8,6 @@ executors:
 commands:
   base-command:
     steps:
-      - setup_remote_docker
       - checkout
       - run: make config.env
 
