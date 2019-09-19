@@ -5,7 +5,7 @@ from core.models import Article
 from core.factories import ArticleFactory
 
 
-class QuestionIndexViewTests(TestCase):
+class ArticleIndexViewTests(TestCase):
     def test_no_articles(self):
         """
         If no arqicles exist, an appropriate message is displayed.
@@ -21,8 +21,8 @@ class QuestionIndexViewTests(TestCase):
 
         response = self.client.get(reverse('core:index'))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(3, len(response.context['articles']))
-        self.assertEqual(list(Article.objects.all()), list(response.context['articles']))
+        self.assertEqual(len(response.context['articles']), 3)
+        self.assertEqual(list(response.context['articles']), list(Article.objects.all()))
 
     def test_filter_articles(self):
         ArticleFactory(title='Minha noticia 1')
@@ -33,6 +33,6 @@ class QuestionIndexViewTests(TestCase):
 
         response = self.client.get(reverse('core:index'), data={'title': 'min'})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(2, Article.objects.filter(title__icontains='min').count())
-        self.assertEqual(2, len(response.context['articles']))
-        self.assertEqual(list(Article.objects.filter(title__icontains='min')), list(response.context['articles']))
+        self.assertEqual(Article.objects.filter(title__icontains='min').count(), 2)
+        self.assertEqual(len(response.context['articles']), 2)
+        self.assertEqual(list(response.context['articles']), list(Article.objects.filter(title__icontains='min')))
