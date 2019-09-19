@@ -1,13 +1,14 @@
 version: 2.1
 
 executors:
-  python-executor:
-    docker:
-      - image: circleci/python:3.7
+  machine-executor:
+    machine:
+      - image: circleci/classic:latest
+      - docker_layer_caching: true
 
 jobs:
   flake8:
-    executor: python-executor
+    executor: machine-executor
     steps:
       - setup_remote_docker
       - checkout
@@ -17,7 +18,7 @@ jobs:
       - run: make flake8
 
   test:
-    executor: python-executor
+    executor: machine-executor
     steps:
       - setup_remote_docker
       - checkout
