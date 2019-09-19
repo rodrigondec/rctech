@@ -14,5 +14,5 @@ flake8==3.6.0
 setuptools==40.6.3
 
 # web scrapping
-requests==2.18.4
+requests==2.22.0
 beautifulsoup4==4.6.0
