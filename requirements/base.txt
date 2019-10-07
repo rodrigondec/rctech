@@ -15,4 +15,4 @@ setuptools==41.2.0
 
 # web scrapping
 requests==2.22.0
-beautifulsoup4==4.8.0
+beautifulsoup4==4.8.1
